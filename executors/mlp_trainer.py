@@ -63,7 +63,3 @@ if __name__ == '__main__':
 
     batch = next(iter(trainer.train_dataloader))
     trainer.make_step(batch)
-
-    model = MLP(cfg.model_cfg)
-
-
