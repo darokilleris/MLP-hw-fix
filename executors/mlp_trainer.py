@@ -49,8 +49,8 @@ class Trainer:
     def make_step(self, batch):
         """
             Инференс нейронной сети
-            :param batch: dict of data keys ("image", "label")
-            :return: выход
+            :param batch: dict of data with keys ["image", "label"]
+            :return: выход нейронной сети
             # TODO: реализуйте инференс модели для данных batch, посчитайте значение целевой функции
         """
         raise NotImplementedError
