@@ -23,7 +23,7 @@ class Trainer:
         self.train_dataloader = DataLoader(self.train_dataset, batch_size=self.cfg.batch_size, shuffle=True)
 
         self.test_dataset = KMNIST(dataset_cfg, 'test', transforms=prepare_transforms(dataset_cfg.transforms['test']))
-        self.test_dataloader = DataLoader(self.train_dataset, batch_size=self.cfg.batch_size, shuffle=False)
+        self.test_dataloader = DataLoader(self.test_dataset, batch_size=self.cfg.batch_size, shuffle=False)
 
     def __prepare_model(self, model_cfg):
         """ Подготовка нейронной сети"""
