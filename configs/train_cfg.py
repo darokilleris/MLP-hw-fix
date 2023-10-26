@@ -7,7 +7,9 @@ ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 cfg = EasyDict()
 
-cfg.batch_size = 16
+cfg.batch_size = 64
+cfg.lr = 1e-3
+cfg.optimizer_name = 'SGD'  # ['SGD', 'Adam']
 
 cfg.model_cfg = model_cfg
 cfg.dataset_cfg = dataset_cfg

@@ -40,7 +40,7 @@ class MLP(nn.Module):
 
     def forward(self, inputs):
         """
-            Forward pass нейронной сети
+            Forward pass нейронной сети, все вычисления производятся для батча
             :param inputs: torch.Tensor(batch_size, height, weight)
             :return output of the model: torch.Tensor(batch_size, nrof_classes)
 
