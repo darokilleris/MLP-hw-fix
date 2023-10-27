@@ -8,7 +8,7 @@ def confusion_matrix(*args, **kwargs):
             confusion_matrix[i, j] - кол-во элементов класса "i", которые классифицируются как класс "j"
 
         :return plt.gcf() - matplotlib figure
-        TODO: реализуйте построение и визуализацию confusion_matrix, подпишите оси на полученной визуализации
+        TODO: реализуйте построение и визуализацию confusion_matrix, подпишите оси на полученной визуализации, добавьте значение confusion_matrix[i, j] в соотвествующие ячейки на изображении
     """
 
     raise NotImplementedError
