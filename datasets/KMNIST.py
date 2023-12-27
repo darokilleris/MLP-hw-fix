@@ -6,6 +6,8 @@ from urllib import request
 
 import torch
 from torch.utils.data import Dataset
+import torchvision.transforms as transforms
+
 
 
 class KMNIST(Dataset):
@@ -22,33 +24,46 @@ class KMNIST(Dataset):
 
         self.images, self.labels = [], []
         self._read_dataset()
+        self._calculate_statistics()
 
     def __len__(self):
         """
             Функция __len__ возвращает количество элементов в наборе данных.
             TODO: Реализуйте этот метод
         """
-        raise NotImplementedError
+        return len(self.images)
 
-    def __getitem__(self, idx: int):
+    def __getitem__(self, idx: int)-> dict:
         """
             Функция __getitem__ возвращает элемент из набора данных по заданному индексу idx.
 
             :param idx: int - представляет индекс элемента, к которому вы пытаетесь получить доступ из набора данных
             :return: dict - словарь с двумя ключами: "image" и "label". Ключ "image" соответствует изображению, а ключ
             "label" соответствует метке этого изображения.
-            TODO: Реализуйте этот метод, исходное изображение необходимо привести к типу np.float32 и нормализовать
+             TODO: Реализуйте этот метод, исходное изображение необходимо привести к типу np.float32 и нормализовать
                 по заданным self.mean и self.std
         """
-        raise NotImplementedError
+        return {
+            'image': (np.float32(self.images[idx]) - self.mean) / self.std,
+            'label': np.int64(self.labels[idx])
+        }
 
+    def _calculate_statistics(self):
+        self.mean = np.mean(self.images)
+        self.std = np.std(self.images)
+    
     def show_statistics(self):
         """
             TODO: Необходимо посчитать количество элементов в наборе данных, количество элементов в каждом классе, а так
                 же посчитать среднее (mean) и стандартное отклонение (std) по всем изображениям набора данных
                 Результат работы функции вывести в консоль (print())
         """
-        raise NotImplementedError
+        print('Информация о наборе данных:')
+        print(f'Количество элементов в наборе данных:{len(self.images)}')
+        print(f'Количество элементов в каждом классе: {np.bincount(self.labels)}')
+        print(f'Среднее значение по изображениям: {self.mean}')
+        print(f'Стандартное отклонение по изображениям: {self.std}')
+        print('')
 
     def _read_dataset(self):
         if not os.path.exists(os.path.join(self.cfg.path, self.cfg.filename)):
@@ -58,6 +73,8 @@ class KMNIST(Dataset):
         with open(os.path.join(self.cfg.path, f"{self.dataset_type}_{self.cfg.filename}"), "rb") as f:
             data = pickle.load(f, encoding="latin-1")
         self.images, self.labels = data['images'], data['labels']
+        # for i, label in enumerate(data['labels']):
+        #     data['labels'][i] = torch.tensor(label, dtype=torch.int64)
 
     def _download_dataset(self):
         os.makedirs(self.cfg.path, exist_ok=True)

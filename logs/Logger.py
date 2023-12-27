@@ -3,16 +3,16 @@ from dotenv import load_dotenv
 import os
 from typing import Union, List
 
-
 class Logger:
     def __init__(self, env_path, project, experiment_name=None):
-
+        print('initializing neptune logger...')
         load_dotenv(env_path)
         self.run = neptune.init_run(
             project=project,
             api_token=os.environ['NEPTUNE_APIKEY'],
             name=experiment_name
         )
+        print('neptune logger initialized!')
 
     def log_hyperparameters(self, params: dict):
         # сохранение гиперпараметов модели
