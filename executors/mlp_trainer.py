@@ -246,7 +246,7 @@ if __name__ == '__main__':
     trainer = Trainer(cfg)
 
     # оверффитинг на одном батче
-    trainer.overfitting_on_batch()
+    # trainer.overfitting_on_batch()
 
     # обучение нейронной сети
     # trainer.fit()
